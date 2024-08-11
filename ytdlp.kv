@@ -1,0 +1,79 @@
+BoxLayout:
+    orientation: 'vertical'
+    background_color: '#021526'
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 0.8
+        background_color: '#021526'
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: (0.3, 1)
+
+            ScrollView:
+                GridLayout:
+                    id: file_list
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    row_default_height: 40  # Mindesthöhe der Buttons
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: (0.7, 1)
+
+            TextInput:
+                id: url_input
+                hint_text: 'Geben Sie die URL ein'
+                size_hint_x: 1
+                size_hint_y: 0.1
+
+            Button:
+                id: download_button
+                text: 'Download Audio'
+                size_hint_x: 1
+                size_hint_y: 0.1
+                bold: True
+                background_color: '#6EACDA'
+
+            Label:
+                id: status_label
+                text: 'Status: Warten auf Eingabe...'
+                size_hint_x: 1
+                size_hint_y: 0.1
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: 0.2
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 50
+
+            Label:
+                id: current_playing_label
+                text: 'Es wird gerade nichts abgespielt'
+                size_hint_x: 1
+
+            Button:
+                id: stop_button
+                text: 'Stop'
+                size_hint_x: 0.2
+                background_color: '#03346E'
+                background_normal: ""
+
+            Button:
+                id: next_button
+                text: 'Weiter'
+                size_hint_x: 0.2
+                background_color: '#03346E'
+                background_normal: ""
+
+        ProgressBar:
+            id: progress_bar
+            max: 100
+            size_hint_y: None
+            height: 20
+            size_hint_x: 1
