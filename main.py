@@ -14,6 +14,7 @@ from threading import Thread
 import threading
 import yt_dlp
 import os
+import time
 
 class YTDLPApp(App):
     def build(self):
@@ -27,6 +28,7 @@ class YTDLPApp(App):
         self.current_sound = None
         self.current_file_name = None
         self.current_file_index = -1
+        self.start_time = None  # Startzeit des aktuell abgespielten Sounds
 
         root.ids.download_button.bind(on_press=self.start_download)
         root.ids.stop_button.bind(on_press=self.stop_audio)
@@ -113,14 +115,15 @@ class YTDLPApp(App):
             # Reset the progress bar
             self.progress_bar.value = 0
             self.progress_bar.max = self.current_sound.length * 1000  # In milliseconds
+            self.start_time = time.time()
             Clock.schedule_interval(self.update_progress_bar, 0.1)
         else:
             print("Failed to load sound")
     
     def update_progress_bar(self, dt):
         if self.current_sound:
-            # Update progress bar based on the elapsed time
-            self.progress_bar.value = self.current_sound.get_pos()
+            elapsed_time = (time.time() - self.start_time) * 1000  # In milliseconds
+            self.progress_bar.value = elapsed_time
             if self.progress_bar.value >= self.progress_bar.max:
                 # Stop updating the progress bar if the sound is finished
                 self.stop_audio(None)
